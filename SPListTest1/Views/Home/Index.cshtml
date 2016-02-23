@@ -1,0 +1,28 @@
+﻿
+@using Microsoft.SharePoint.Client
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.List.Title</h2>
+
+<table border="1">
+    <tr>
+        <th>Request ID</th>
+        <th>Request Details</th>
+        <th>Requested By</th>
+        <th>Request Status</th>
+    </tr>
+    @foreach (ListItem listItem in ViewBag.ListItems)
+    {
+        <tr>
+            <td>@listItem["Request_x0020_ID"]</td>
+            <td>@listItem["Request_x0020_Details"]</td>
+            <td>@(((FieldUserValue)listItem["Author"]).LookupValue)</td>
+            <td>@listItem["Request_x0020_Status"]</td>
+        </tr>
+    }
+</table>
+
+<p>@ViewBag.ListItems.Count items in the List.</p>
