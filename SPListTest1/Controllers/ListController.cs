@@ -6,12 +6,13 @@ using System.Web.Mvc;
 using Microsoft.SharePoint.Client;
 using SPClient = Microsoft.SharePoint.Client;
 
+
 namespace SPListTest1.Controllers
 {
     public class ListController : Controller
     {
-        string SiteUrl = "http://win08vm/cysun";
-        string ListName = "Test List 1";
+        string SiteUrl = "http://qtcserver/raymond/";
+        string ListName = "Request_Test";
 
         public ActionResult Items()
         {
@@ -27,7 +28,7 @@ namespace SPListTest1.Controllers
             CamlQuery camlQuery = new CamlQuery();
             ListItemCollection spListItems = spList.GetItems(camlQuery);
             clientContext.Load(spListItems, items => items.IncludeWithDefaultProperties(
-                item => item["Request_x0020_ID"],
+                item => item["ID"],
                 item => item["Request_x0020_Details"],
                 item => item["Author"],
                 item => item["Request_x0020_Status"]));
@@ -52,7 +53,8 @@ namespace SPListTest1.Controllers
             // For testing purpose, we'll use a local account jdoe for the new item;
             // otherwise the Requested By (i.e. Author) field will be populated with
             // the user who runs the ASP.NET web applicationn.
-            var user = clientContext.Web.EnsureUser("WIN08VM\\jdoe");
+
+            var user = clientContext.Web.EnsureUser("rwu8");
             clientContext.Load(user);
             clientContext.ExecuteQuery();
             FieldUserValue userValue = new FieldUserValue();
