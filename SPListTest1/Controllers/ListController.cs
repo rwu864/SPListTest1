@@ -25,10 +25,16 @@ namespace SPListTest1.Controllers
             clientContext.Load(spList);
             clientContext.ExecuteQuery();
 
+            //Internal Names        ->  List Names 
+            //NewColumn1            ->  Request ID
+            //Request_x0020_Details ->  Request Details
+            //Author                ->  Request By
+            //Request_x0020_Status  ->  Request Status
+
             CamlQuery camlQuery = new CamlQuery();
             ListItemCollection spListItems = spList.GetItems(camlQuery);
             clientContext.Load(spListItems, items => items.IncludeWithDefaultProperties(
-                item => item["ID"],
+                item => item["NewColumn1"],
                 item => item["Request_x0020_Details"],
                 item => item["Author"],
                 item => item["Request_x0020_Status"]));
