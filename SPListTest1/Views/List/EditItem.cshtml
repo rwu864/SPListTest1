@@ -1,0 +1,55 @@
+﻿@using Microsoft.SharePoint.Client
+@{
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditItem</title>
+</head>
+<body>
+    Request ID: @ViewBag.Request_ID <br/>
+    Request By: @ViewBag.Request_By <br/>
+    <form action="EditItem" method="post">
+        Request Status: <select name="status">
+            @{ 
+                if(ViewBag.Request_Status.Equals("Pending Review"))
+                {
+                    <option value="Pending Review">Pending Review</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="More Information Needed">More Information Needed</option>
+                }
+                else if (ViewBag.Request_Status.Equals("Approved"))
+                {
+                    <option value="Approved">Approved</option>
+                    <option value="Pending Review">Pending Review</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="More Information Needed">More Information Needed</option>
+                }
+                else if (ViewBag.Request_Status.Equals("Rejected"))
+                {
+                    <option value="Rejected">Rejected</option>
+                    <option value="Pending Review">Pending Review</option>
+                    <option value="Approved">Approved</option>
+                    <option value="More Information Needed">More Information Needed</option>
+                }
+                else
+                {
+                    //More Information Needed
+                    <option value="More Information Needed">More Information Needed</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Pending Review">Pending Review</option>
+                    <option value="Approved">Approved</option>
+                }
+            }
+        </select><br/><br/>
+        Request Details: <textarea name="details" rows="5" cols="50">@ViewBag.Request_Details</textarea><br />
+        <input type="hidden" name="ID" value="@ViewBag.ID"/>
+        <input type="submit" name="submit" value="Update" />
+    </form>
+</body>
+</html>

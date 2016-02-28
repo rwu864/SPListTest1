@@ -89,5 +89,47 @@ namespace SPListTest1.Controllers
 
             return Redirect("Items");
         }
+
+        [HttpGet]
+        public ActionResult EditItem(int ID)
+        {
+            ClientContext clientContext = new ClientContext(SiteUrl);
+            List spList = clientContext.Web.Lists.GetByTitle(ListName);
+
+            clientContext.Load(spList);
+            ListItem spListItem = spList.GetItemById(ID);
+            clientContext.Load(spListItem);
+            clientContext.ExecuteQuery();
+            
+            string Request_ID = (String)spListItem["NewColumn1"];
+            string Request_Details = (String)spListItem["Request_x0020_Details"];
+            string Request_Status = (String)spListItem["Request_x0020_Status"];
+            FieldUserValue Author = (FieldUserValue)spListItem["Author"];
+            string Request_By = Author.LookupValue;
+            
+            ViewBag.Request_ID = Request_ID;
+            ViewBag.Request_Details = Request_Details;
+            ViewBag.Request_Status = Request_Status;
+            ViewBag.Request_By = Request_By;
+            ViewBag.ID = ID;
+
+            return View();
+        }
+
+        [HttpPost]
+        public RedirectResult EditItem(String details, String status, int ID)
+        {
+            ClientContext clientContext = new ClientContext(SiteUrl);
+            List spList = clientContext.Web.Lists.GetByTitle(ListName);
+            ListItem spListItem = spList.GetItemById(ID);
+
+            spListItem["Request_x0020_Details"] = details;
+            spListItem["Request_x0020_Status"] = status;
+
+            spListItem.Update();
+            clientContext.ExecuteQuery();
+
+            return Redirect("Items");
+        }
     }
 }

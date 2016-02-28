@@ -25,7 +25,7 @@
             <td>@listItem["Request_x0020_Details"]</td>
             <td>@(((FieldUserValue)listItem["Author"]).LookupValue)</td>
             <td>@listItem["Request_x0020_Status"]</td>
-            <td>Filler, for now</td>
+            <td><a href="EditItem?ID=@listItem["ID"]">Edit Item</a></td>
             <td><a href="DeleteItem?ID=@listItem["ID"]">Delete Request</a></td>
         </tr>
     }
