@@ -76,5 +76,18 @@ namespace SPListTest1.Controllers
 
             return Redirect("Items");
         }
+
+        [HttpGet]
+        public ActionResult DeleteItem(int ID)
+        {
+            ClientContext clientContext = new ClientContext(SiteUrl);
+            List spList = clientContext.Web.Lists.GetByTitle(ListName);
+            ListItem spListItem = spList.GetItemById(ID);
+
+            spListItem.DeleteObject();
+            clientContext.ExecuteQuery();
+
+            return Redirect("Items");
+        }
     }
 }
