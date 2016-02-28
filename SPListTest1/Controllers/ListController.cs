@@ -11,8 +11,8 @@ namespace SPListTest1.Controllers
 {
     public class ListController : Controller
     {
-        string SiteUrl = "http://qtcserver/raymond/";
-        string ListName = "Request_Test";
+        string SiteUrl = "http://win08vm/cysun";
+        string ListName = "Test List 1";
 
         public ActionResult Items()
         {
@@ -34,7 +34,7 @@ namespace SPListTest1.Controllers
             CamlQuery camlQuery = new CamlQuery();
             ListItemCollection spListItems = spList.GetItems(camlQuery);
             clientContext.Load(spListItems, items => items.IncludeWithDefaultProperties(
-                item => item["NewColumn1"],
+                item => item["Request_x0020_ID"],
                 item => item["Request_x0020_Details"],
                 item => item["Author"],
                 item => item["Request_x0020_Status"]));
@@ -60,7 +60,7 @@ namespace SPListTest1.Controllers
             // otherwise the Requested By (i.e. Author) field will be populated with
             // the user who runs the ASP.NET web applicationn.
 
-            var user = clientContext.Web.EnsureUser("rwu8");
+            var user = clientContext.Web.EnsureUser("WIN08VM\\jdoe");
             clientContext.Load(user);
             clientContext.ExecuteQuery();
             FieldUserValue userValue = new FieldUserValue();
@@ -101,7 +101,7 @@ namespace SPListTest1.Controllers
             clientContext.Load(spListItem);
             clientContext.ExecuteQuery();
             
-            string Request_ID = (String)spListItem["NewColumn1"];
+            string Request_ID = (String)spListItem["Request_x0020_ID"];
             string Request_Details = (String)spListItem["Request_x0020_Details"];
             string Request_Status = (String)spListItem["Request_x0020_Status"];
             FieldUserValue Author = (FieldUserValue)spListItem["Author"];

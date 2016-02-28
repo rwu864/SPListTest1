@@ -15,18 +15,19 @@
         <th>Request Details</th>
         <th>Requested By</th>
         <th>Request Status</th>
-        <th>Edit Item</th>
-        <th>Delete Item</th>
+        <th>Operations</th>
     </tr>
     @foreach (ListItem listItem in ViewBag.ListItems)
     {
         <tr>
-            <td>@listItem["NewColumn1"]</td>
+            <td>@listItem["Request_x0020_ID"]</td>
             <td>@listItem["Request_x0020_Details"]</td>
             <td>@(((FieldUserValue)listItem["Author"]).LookupValue)</td>
             <td>@listItem["Request_x0020_Status"]</td>
-            <td><a href="EditItem?ID=@listItem["ID"]">Edit Item</a></td>
-            <td><a href="DeleteItem?ID=@listItem["ID"]">Delete Request</a></td>
+            <td>
+                <a href="EditItem?ID=@listItem["ID"]">Edit</a> |
+                <a href="DeleteItem?ID=@listItem["ID"]">Delete</a>
+            </td>
         </tr>
     }
 </table>
