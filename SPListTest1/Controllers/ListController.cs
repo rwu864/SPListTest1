@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.SharePoint.Client;
 using SPClient = Microsoft.SharePoint.Client;
+using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 
 
 namespace SPListTest1.Controllers
@@ -25,11 +27,12 @@ namespace SPListTest1.Controllers
             clientContext.Load(spList);
             clientContext.ExecuteQuery();
 
-            //Internal Names        ->  List Names 
-            //NewColumn1            ->  Request ID
-            //Request_x0020_Details ->  Request Details
-            //Author                ->  Request By
-            //Request_x0020_Status  ->  Request Status
+            //Internal Names                ->  List Names 
+            //NewColumn1                    ->  Request ID
+            //Request_x0020_Details         ->  Request Details
+            //Author                        ->  Request By
+            //Request_x0020_Status          ->  Request Status
+            //Request_x0020_Due_x0020_Date  -> Request Due Date
 
             CamlQuery camlQuery = new CamlQuery();
             ListItemCollection spListItems = spList.GetItems(camlQuery);
@@ -37,11 +40,16 @@ namespace SPListTest1.Controllers
                 item => item["NewColumn1"],
                 item => item["Request_x0020_Details"],
                 item => item["Author"],
-                item => item["Request_x0020_Status"]));
+                item => item["Request_x0020_Status"],
+                item => item["Request_x0020_Due_x0020_Date"]));
             clientContext.ExecuteQuery();
 
             ViewBag.List = spList;
             ViewBag.ListItems = spListItems;
+
+            
+
+            
             return View();
         }
 
@@ -52,7 +60,7 @@ namespace SPListTest1.Controllers
         }
 
         [HttpPost]
-        public RedirectResult NewItem(string details)
+        public RedirectResult NewItem(string details, DateTime due_date)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
 
@@ -71,6 +79,7 @@ namespace SPListTest1.Controllers
             var item = spList.AddItem(info);
             item["Request_x0020_Details"] = details;
             item["Author"] = userValue;
+            item["Request_x0020_Due_x0020_Date"] = due_date;
             item.Update();
             clientContext.ExecuteQuery();
 
@@ -106,18 +115,24 @@ namespace SPListTest1.Controllers
             string Request_Status = (String)spListItem["Request_x0020_Status"];
             FieldUserValue Author = (FieldUserValue)spListItem["Author"];
             string Request_By = Author.LookupValue;
+            string Request_Due_Date = ((DateTime)spListItem["Request_x0020_Due_x0020_Date"]).ToShortDateString();
             
             ViewBag.Request_ID = Request_ID;
             ViewBag.Request_Details = Request_Details;
             ViewBag.Request_Status = Request_Status;
             ViewBag.Request_By = Request_By;
             ViewBag.ID = ID;
+            ViewBag.Request_Due_Date = Request_Due_Date;
+
+            //retrieving drop down menu items 
+            var choices_list = spListItem["Request_x0020_Status"].ToString();
+            ViewBag.Choices_List = choices_list;
 
             return View();
         }
 
         [HttpPost]
-        public RedirectResult EditItem(String details, String status, int ID)
+        public RedirectResult EditItem(String details, String status, int ID, DateTime date)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
             List spList = clientContext.Web.Lists.GetByTitle(ListName);
@@ -125,6 +140,7 @@ namespace SPListTest1.Controllers
 
             spListItem["Request_x0020_Details"] = details;
             spListItem["Request_x0020_Status"] = status;
+            spListItem["Request_x0020_Due_x0020_Date"] = date;
 
             spListItem.Update();
             clientContext.ExecuteQuery();
