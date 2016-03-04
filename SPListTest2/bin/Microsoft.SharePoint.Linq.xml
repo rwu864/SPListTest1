@@ -1,0 +1,994 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Microsoft.SharePoint.Linq</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.SharePoint.Linq.AssociationAttribute">
+      <summary>Specifies that the property (mapped to a list field) has an association to another list, such as when the property is mapped to a lookup field.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.AssociationAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.AssociationAttribute" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.AssociationAttribute.List">
+      <summary>Gets or sets the name of the target list.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the target list.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.AssociationAttribute.MultivalueType">
+      <summary>Gets or sets the directionality of the association and whether it is single-valued or multi-valued.</summary>
+      <returns>An <see cref="T:Microsoft.SharePoint.Linq.AssociationType" /> that specifies the directionality of the association and whether it is single-valued or multi-valued.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.AssociationChangedEventArgs`1">
+      <summary>Provides data for the OnChanged event of <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" />, <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />, or <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <typeparam name="T">The type of the the entity involved in the change.</typeparam>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.AssociationChangedEventArgs`1.#ctor(`0,Microsoft.SharePoint.Linq.AssociationChangedState)">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.AssociationChangedEventArgs`1" /> class.</summary>
+      <param name="item">The entity involved in the change.</param>
+      <param name="state">An object that specifies the type of change.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.AssociationChangedEventArgs`1.Item">
+      <summary>Gets the entity involved in the change.</summary>
+      <returns>A T that represents the entity involved in the change.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.AssociationChangedEventArgs`1.State">
+      <summary>Gets the type of change.</summary>
+      <returns>An  <see cref="T:Microsoft.SharePoint.Linq.AssociationChangedState" /> that specifies the type of change.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.AssociationChangedState">
+      <summary>Specifies how an <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" />, <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />, or <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" /> changes.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.AssociationChangedState.Added">
+      <summary>A child entity is added.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.AssociationChangedState.Removed">
+      <summary>A child entity is removed.</summary>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.AssociationType">
+      <summary>Specifies the type of lookup relation between a field (column) in one list and a field in another list.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.AssociationType.None">
+      <summary>Unspecified or undefined relationship.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.AssociationType.Single">
+      <summary>Forward lookup with a single value.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.AssociationType.Multi">
+      <summary>Forward lookup with multiple values.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.AssociationType.Backward">
+      <summary>Reverse lookup with multiple values.</summary>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ChangeConflictCollection">
+      <summary>Represents a collection of <see cref="T:Microsoft.SharePoint.Linq.ObjectChangeConflict" /> objects.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.Add(Microsoft.SharePoint.Linq.ObjectChangeConflict)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.Clear">
+      <summary>Deletes all members of the collection.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.Contains(Microsoft.SharePoint.Linq.ObjectChangeConflict)">
+      <summary>Determines whether the specified object is in the collection.</summary>
+      <returns>true, if the object is in the collection; otherwise false.</returns>
+      <param name="item">The conflict object for a particular list item.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.CopyTo(Microsoft.SharePoint.Linq.ObjectChangeConflict[],System.Int32)">
+      <summary>Copies the members of the collection into the specified array beginning at the specified zero-based index of the target array.</summary>
+      <param name="array">The target array.</param>
+      <param name="arrayIndex">The zero-based point in the target array at which copying begins. </param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ChangeConflictCollection.Count">
+      <summary>Returns the total number of discrepancies in the collection.</summary>
+      <returns>A <see cref="T:System.Int32" /> that represents the total number of items in the collection.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.GetEnumerator">
+      <summary>Returns an enumerator that can be used to iterate through the collection.</summary>
+      <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1" /> object that can be used to iterate through the collection.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.Remove(Microsoft.SharePoint.Linq.ObjectChangeConflict)">
+      <summary>Removes the first instance of the specified conflict object from the collection.</summary>
+      <returns>true, if the object was removed; false if it was not or if it was not in the collection.</returns>
+      <param name="item">The object that is removed.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.ResolveAll">
+      <summary>Resolves all the concurrency conflicts in the collection.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.ResolveAll(Microsoft.SharePoint.Linq.RefreshMode)">
+      <summary>Resolves all the concurrency conflicts in the collection using the specified refresh mode.</summary>
+      <param name="refreshMode">A value that specifies how to resolve the conflict.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.ResolveAll(Microsoft.SharePoint.Linq.RefreshMode,System.Boolean)">
+      <summary>Resolves all the concurrency conflicts in the collection using the specified refresh mode and the specified resolution of deleted items.</summary>
+      <param name="refreshMode">A value that specifies how to resolve the conflict.</param>
+      <param name="autoResolveDeletes">true to treat the conflict as resolved if the list item being changed has been deleted from the database; false to throw InvalidOperationException if the list item being changed has been deleted from the database</param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="autoResolveDeletes" /> is false and the list item being updated has been deleted from the database.</exception>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ChangeConflictCollection.System#Collections#Generic#ICollection{Microsoft#SharePoint#Linq#ObjectChangeConflict}#IsReadOnly">
+      <summary>Not implemented.</summary>
+      <exception cref="T:System.NotImplementedException">This property is accessed.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.System#Collections#ICollection#CopyTo(System.Array,System.Int32)">
+      <summary>Copies the members of the collection into the specified array beginning at the specified zero-based index of the target array.</summary>
+      <param name="array">The target array.</param>
+      <param name="index">The zero-based point in the target array at which copying begins.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ChangeConflictCollection.System#Collections#ICollection#IsSynchronized">
+      <summary>Not implemented.</summary>
+      <exception cref="T:System.NotImplementedException">This property is accessed.</exception>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ChangeConflictCollection.System#Collections#ICollection#SyncRoot">
+      <summary>Not implemented.</summary>
+      <exception cref="T:System.NotImplementedException">This property is accessed.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.System#Collections#IEnumerable#GetEnumerator">
+      <summary>This implementation simply calls <see cref="M:Microsoft.SharePoint.Linq.ChangeConflictCollection.GetEnumerator" />.</summary>
+      <returns>A <see cref="T:System.Collections.IEnumerator" /> that can be used to iterate the collection.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ChangeConflictException">
+      <summary>Represents the exception that is thrown when an update fails because database values have been updated since the client last read them.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictException.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.ChangeConflictException" /> class.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.ChangeConflictException" /> class from a serialized version of the exception and contextual data.</summary>
+      <param name="info">A serialized version of the data for the exception object.
+
+</param>
+      <param name="context">An object with information about the source and destination of the exception.
+</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictException.#ctor(System.String)">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.ChangeConflictException" /> class that uses the specified error message.</summary>
+      <param name="message">A message describing the nature of the exception.
+</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChangeConflictException.#ctor(System.String,System.Exception)">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.ChangeConflictException" /> class that uses the specified error message and inner exception.</summary>
+      <param name="message">A message describing the nature of the exception.
+</param>
+      <param name="innerException">The inner exception that triggered the <see cref="T:Microsoft.SharePoint.Linq.ChangeConflictException" />.</param>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ChoiceAttribute">
+      <summary>Maps a member of an enumeration to a <see cref="T:System.String" /> choice value for a Choice or MultiChoice type field on a Windows SharePoint Services "14" list.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ChoiceAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.ChoiceAttribute" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ChoiceAttribute.Value">
+      <summary>Gets or sets the choice value that is mapped to the enumeration value.</summary>
+      <returns>An <see cref="T:System.String" /> that represents a choice value that is mapped to the enumeration value.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ColumnAttribute">
+      <summary>Specifies that the property is mapped to a field (column) in a Windows SharePoint Services "14" list.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ColumnAttribute.#ctor">
+      <summary>Initializes an instance of the <see cref="T:Microsoft.SharePoint.Linq.ColumnAttribute" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ColumnAttribute.FieldType">
+      <summary>Gets or sets the type of the field.</summary>
+      <returns>A case-sensitive <see cref="T:System.String" /> that represents the type of the data in the field.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ColumnAttribute.IsId">
+      <summary>Gets or sets a value that indicates whether the field is the ID field for the list.</summary>
+      <returns>true, if the field is the ID field of the list; false otherwise.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ColumnAttribute.IsLookupId">
+      <summary>Gets or sets a value that indicates whether the property represents the Id of the list item that provides the value for the property that represents the looked-up value. </summary>
+      <returns>true, if the property represents the Id of the same item in the lookup target list that provides the value for the Lookup field; false otherwise.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ColumnAttribute.IsLookupValue">
+      <summary>Gets or sets a value that indicates whether this field is a lookup field value.</summary>
+      <returns>true, if the field is a lookup field; false otherwise.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ColumnAttribute.IsVersion">
+      <summary>Gets or sets a value that indicates whether the field holds the version of the list item.</summary>
+      <returns>true, if the field is the version of the list item; false otherwise.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ColumnAttribute.LookupDisplayColumn">
+      <summary>The name of the target column of the target list in a lookup relation.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the name of the target column.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ColumnAttribute.Required">
+      <summary>Gets or sets a value that indicates whether the field (column) is required to have a value.</summary>
+      <returns>true, if the field must have a value; false otherwise.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ConflictMode">
+      <summary>Specifies when an attempt to submit changes to a list should be stopped and rolled back.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.ConflictMode.ContinueOnConflict">
+      <summary>Attempt all changes and, when done, if there have been any concurrency conflicts, throw a <see cref="T:Microsoft.SharePoint.Linq.ChangeConflictException" /> exception, populate <see cref="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts" />,  and rollback all changes.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.ConflictMode.FailOnFirstConflict">
+      <summary>Throw a <see cref="T:Microsoft.SharePoint.Linq.ChangeConflictException" /> exception when the first concurrency change conflict is found, stop making changes, populate <see cref="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts" />, and rollback all changes that were made to that point.</summary>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ContentTypeAttribute">
+      <summary>Specifies that the class maps to a Windows SharePoint Services "14" content type.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ContentTypeAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.ContentTypeAttribute" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ContentTypeAttribute.Id">
+      <summary>Gets or sets the ID of the content type.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the ID of the content type.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ContentTypeAttribute.List">
+      <summary>Gets or sets the name of the list to which the content type is scoped if, and only if, it is a list-scoped content type.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the name of the list.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ContentTypeAttribute.Name">
+      <summary>Gets or sets the name of the content type.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the name of the content type.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.CustomMappingAttribute">
+      <summary>Identifies what new columns are mapped with the <see cref="M:Microsoft.SharePoint.Linq.ICustomMapping.MapFrom(System.Object)" /> method that is decorated with the attribute.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.CustomMappingAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.CustomMappingAttribute" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.CustomMappingAttribute.Columns">
+      <summary>Gets or sets the internal names of new columns that have been added to a list after a solution based on a LINQ to SharePoint object-relational mapping of the list was deployed.</summary>
+      <returns>An array of <see cref="T:System.String" />s that identify the columns by their internal names.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.DataAttribute">
+      <summary>Provides two optional properties commonly used by attributes on properties (of entity classes) that are mapped to list fields (columns) or list properties.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.DataAttribute" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DataAttribute.Name">
+      <summary>Gets or sets the internal name of the list field (column) or list property. </summary>
+      <returns>A <see cref="T:System.String" /> that identifies the name of the field or property.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DataAttribute.ReadOnly">
+      <summary>Gets or sets a value that indicates whether the column on the list is read-only.</summary>
+      <returns>true, if the column is read-only; otherwise, false.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DataAttribute.Storage">
+      <summary>Gets or sets the field member of the entity class that stores the value of the property to which the attribute is applied.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the name of the field member.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.DataContext">
+      <summary>Provides LINQ (Language Integrated Query) access to, and change tracking for, the lists and document libraries of a Windows SharePoint Services "14" Web site.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.#ctor(System.String)">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> class that provides access and change tracking for the specified Web site. </summary>
+      <param name="requestUrl">The URL of a Windows SharePoint Services "14" Web site.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DataContext.AllowInefficientQueries">
+      <summary>Gets or sets a value indicating whether inefficient queries are allowed against the lists represented by the <see cref="T:Microsoft.SharePoint.Linq.DataContext" />.</summary>
+      <returns>true, if inefficient queries are allowed; false otherwise. The default is false.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts">
+      <summary>Gets a collection of objects that represent discrepancies between the current client value and the current database value of a field in a list item.</summary>
+      <returns>A <see cref="T:Microsoft.SharePoint.Linq.ChangeConflictCollection" /> each of whose members represents a discrepancy.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DataContext.DeferredLoadingEnabled">
+      <summary>Gets or sets a value indicating whether the LINQ to SharePoint provider should allow delay loading of <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> and <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> objects.</summary>
+      <returns>true, if delayed loading should be used; false otherwise. The default is true.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.Dispose">
+      <summary>Releases all managed and unmanaged resources used by the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.Dispose(System.Boolean)">
+      <summary>Releases all unmanaged resources used by the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object and possibly also the managed resources as specified.</summary>
+      <param name="disposing">true to release both managed and unmanaged resources, false to release only unmanaged resources.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.Finalize">
+      <summary>Releases all unmanaged resources used by the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.GetList``1(System.String)">
+      <summary>Returns an object that represents the specified list and is queryable by LINQ (Language Integrated Query).</summary>
+      <returns>An <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" /> that represents the list.</returns>
+      <param name="listName">The name of the list.</param>
+      <typeparam name="T">The content type of the list items.</typeparam>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DataContext.Log">
+      <summary>Gets or sets an object that will write the Collaborative Application Markup Language (CAML) query that results from the translation of the LINQ query.</summary>
+      <returns>A <see cref="T:System.IO.TextWriter" /> that can be called to write the CAML query.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.MakeUrl(System.String,System.String)"></member>
+    <member name="P:Microsoft.SharePoint.Linq.DataContext.ObjectTrackingEnabled">
+      <summary>Gets or sets a value that indicates whether changes in objects are tracked.</summary>
+      <returns>true, if changes are tracked; false otherwise.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.Refresh(Microsoft.SharePoint.Linq.RefreshMode,System.Collections.IEnumerable)">
+      <summary>Refreshes a collection of entities with the latest data from the content database according to the specified mode.</summary>
+      <param name="mode">A value that specifies how to resolve differences between the current client values and the database values.</param>
+      <param name="entities">The entities that are refreshed.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.Refresh(Microsoft.SharePoint.Linq.RefreshMode,System.Object)">
+      <summary>Refreshes the specified entity with the latest data from the content database according to the specified mode.</summary>
+      <param name="mode">A value that specifies how to resolve differences between the current client values and the database values.</param>
+      <param name="entity">The object that is refreshed.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.Refresh(Microsoft.SharePoint.Linq.RefreshMode,System.Object[])">
+      <summary>Refreshes an array of entities with the latest data from the content database according to the specified mode.</summary>
+      <param name="mode">A value that specifies how to resolve differences between the current client values and the database values.</param>
+      <param name="entities">The entities that are refreshed.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.RegisterList``1(System.String,System.String)">
+      <summary>Enables continued reading and writing to an <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" /> even after it has been renamed.</summary>
+      <param name="newListName">The new name of the list.</param>
+      <param name="oldListName">The old name of the list.</param>
+      <typeparam name="T">The type of the list items.</typeparam>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.RegisterList``1(System.String,System.String,System.String)">
+      <summary>Enables continued reading and writing to an <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" /> even after it has been moved to another Web site.</summary>
+      <param name="newListName">The new name of the list.</param>
+      <param name="newWebUrl">The URL of the Web site to which the list was moved.</param>
+      <param name="oldListName">The old name of the list.</param>
+      <typeparam name="T">The type of the list items.</typeparam>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.SubmitChanges">
+      <summary>Persists to the content database changes made by the current user to one or more lists using the specified failure mode; or, if a concurrency conflict is found, populates the <see cref="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts" /> property.</summary>
+      <exception cref="T:System.InvalidOperationException">
+        <see cref="P:Microsoft.SharePoint.Linq.DataContext.ObjectTrackingEnabled" /> is false- or -At least one conflict in <see cref="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts" /> from the last time <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" /> was called is not yet resolved.</exception>
+      <exception cref="T:Microsoft.SharePoint.Linq.ChangeConflictException">There is a concurrency conflict.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.SubmitChanges(Microsoft.SharePoint.Linq.ConflictMode)">
+      <summary>Persists to the content database changes made by the current user to one or more lists using the specified failure mode; or, if a concurrency conflict is found, populates the <see cref="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts" /> property.</summary>
+      <param name="failureMode">A value that specifies when a concurrency conflict should stop the attempt to persist changes and roll back any changes already made.</param>
+      <exception cref="T:System.InvalidOperationException">
+        <see cref="P:Microsoft.SharePoint.Linq.DataContext.ObjectTrackingEnabled" /> is false- or -At least one conflict in <see cref="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts" /> from the last time <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" /> was called is not yet resolved.</exception>
+      <exception cref="T:Microsoft.SharePoint.Linq.ChangeConflictException">There is a concurrency conflict.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataContext.SubmitChanges(Microsoft.SharePoint.Linq.ConflictMode,System.Boolean)">
+      <summary>Persists, to the content database, changes made by the current user to one or more lists using the specified failure mode and the specified indication of whether the versions of changed list items should be incremented; or, if a concurrency conflict is found, populates the <see cref="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts" /> property.</summary>
+      <param name="failureMode">A value that specifies when a concurrency conflict should stop the attempt to persist changes and roll back any changes already made.</param>
+      <param name="overwriteVersion">true to not increment the version of a changed item, false to increment it.</param>
+      <exception cref="T:System.InvalidOperationException">
+        <see cref="P:Microsoft.SharePoint.Linq.DataContext.ObjectTrackingEnabled" /> is false- or -At least one conflict in <see cref="P:Microsoft.SharePoint.Linq.DataContext.ChangeConflicts" /> from the last time <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" /> was called is not yet resolved.</exception>
+      <exception cref="T:Microsoft.SharePoint.Linq.ChangeConflictException">There is a concurrency conflict.</exception>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DataContext.Web">
+      <summary>Gets the full URL of the Web site whose data is represented by the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the full URL of the Web site.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.DataServiceDataContext"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.#ctor(System.String)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.AddReferenceToCollection(System.Object,System.String,System.Object)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.ClearChanges"></member>
+    <member name="P:Microsoft.SharePoint.Linq.DataServiceDataContext.ContainerName"></member>
+    <member name="P:Microsoft.SharePoint.Linq.DataServiceDataContext.ContainerNamespace"></member>
+    <member name="P:Microsoft.SharePoint.Linq.DataServiceDataContext.Containers"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.CreateResource(System.String,System.String)"></member>
+    <member name="P:Microsoft.SharePoint.Linq.DataServiceDataContext.CurrentDataSource"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.DeleteResource(System.Object)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.DisposeDataSource"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetConfiguration(System.Type)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetContainerForResourceType(System.Data.Services.Providers.ResourceType)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetList``1(System.String)">
+      <typeparam name="T"></typeparam>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetOpenPropertyValues(System.Object)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetPropertyValue(System.Object,System.Data.Services.Providers.ResourceProperty)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetPropertyValue(System.Object,System.String)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetQueryRootForContainer(System.Data.Services.Providers.ResourceContainer)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetResource(System.Linq.IQueryable,System.String)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetResourceType(System.Object,System.Boolean@)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.GetValue(System.Object,System.String)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.InvokeServiceOperation(System.Data.Services.Providers.ServiceOperation,System.Object[])"></member>
+    <member name="P:Microsoft.SharePoint.Linq.DataServiceDataContext.NullPropagationRequired"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.RemoveReferenceFromCollection(System.Object,System.String,System.Object)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.ResetResource(System.Object)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.ResolveResource(System.Object)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.SaveChanges"></member>
+    <member name="P:Microsoft.SharePoint.Linq.DataServiceDataContext.ServiceOperations"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.SetReference(System.Object,System.String,System.Object)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.SetValue(System.Object,System.String,System.Object)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.TryResolveContainerName(System.String)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.TryResolveServiceOperation(System.String)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.DataServiceDataContext.TryResolveTypeName(System.String)"></member>
+    <member name="P:Microsoft.SharePoint.Linq.DataServiceDataContext.Types"></member>
+    <member name="T:Microsoft.SharePoint.Linq.DerivedEntityClassAttribute">
+      <summary>Identifies a class that derives from the class to which the attribute is applied.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.DerivedEntityClassAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.DerivedEntityClassAttribute" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.DerivedEntityClassAttribute.Type">
+      <summary>Gets or sets the type of the derived class.</summary>
+      <returns>A <see cref="T:System.Type" /> that represents the type of the derived class.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.EntityList`1">
+      <summary>Represents a Windows SharePoint Services "14" list that can be queried with Language Integrated Query (LINQ).</summary>
+      <typeparam name="TEntity">The content type of the list items.</typeparam>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.Attach(`0)">
+      <summary>Registers a disconnected or "detached" entity with the object tracking system of the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object associated with the list.</summary>
+      <param name="entity">The entity that is registered.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="entity" /> is null.</exception>
+      <exception cref="T:System.InvalidOperationException">Object tracking is not enabled for the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.- or -<paramref name="entity" /> is not of the same type as the list items.- or -<paramref name="entity" /> has been deleted.- or -There is a problem with the internal ID of <paramref name="entity" /> that is used by the object tracking system.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.DeleteAllOnSubmit(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Marks the specified entities for deletion on the next call of <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+      <param name="entities">The entities to be marked for deletion.</param>
+      <exception cref="T:System.ArgumentNullException">At least one member of <paramref name="entities" /> is null.</exception>
+      <exception cref="T:System.InvalidOperationException">Object tracking is not enabled for the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.- or -At least one member of <paramref name="entities" /> is not of the same type as the list items.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.DeleteOnSubmit(`0)">
+      <summary>Marks the specified entity for deletion on the next call of <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+      <param name="entity">The entity to be marked for deletion.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="entity" /> is null.</exception>
+      <exception cref="T:System.InvalidOperationException">Object tracking is not enabled for the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.- or -<paramref name="entity" /> is not of the same type as the list items.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.GetEnumerator">
+      <summary>Returns an enumerator that iterates through the <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" />.</summary>
+      <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate the list.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.InsertAllOnSubmit(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Marks the specified entities for insertion into the list on the next call of <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+      <param name="entities">The entities to be inserted.</param>
+      <exception cref="T:System.ArgumentNullException">At least one member of <paramref name="entities" /> is null.</exception>
+      <exception cref="T:System.InvalidOperationException">Object tracking is not enabled for the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.- or -At least one member of <paramref name="entities" /> is not of the same type as the list items.- or -At least one member of <paramref name="entities" /> has been deleted.- or -At least one member of <paramref name="entities" /> has been updated.- or -There is a problem with the internal ID of at least one member of <paramref name="entities" /> that is used by the object tracking system.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.InsertOnSubmit(`0)">
+      <summary>Marks the specified entity for insertion into the list on the next call of <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+      <param name="entity">The entity to be marked for insertion.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="entity" /> is null.</exception>
+      <exception cref="T:System.InvalidOperationException">Object tracking is not enabled for the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.- or -<paramref name="entity" /> is not of the same type as the list items.- or -<paramref name="entity" /> has been deleted.- or -<paramref name="entity" /> has been updated.- or -There is a problem with the internal ID of <paramref name="entity" /> that is used by the object tracking system.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.RecycleAllOnSubmit(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Marks the specified entities to be put in the Recycle Bin on the next call of <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+      <param name="entities">The entities to be recycled.</param>
+      <exception cref="T:System.ArgumentNullException">At least one member of <paramref name="entities" /> is null.</exception>
+      <exception cref="T:System.InvalidOperationException">Object tracking is not enabled for the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.- or -At least one member of <paramref name="entities" /> is not of the same type as the list items.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.RecycleOnSubmit(`0)">
+      <summary>Marks the specified entity to be put in the Recycle Bin on the next call of <see cref="Overload:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+      <param name="entity">The entity to be recycled.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="entity" /> is null.</exception>
+      <exception cref="T:System.InvalidOperationException">Object tracking is not enabled for the <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object.- or -<paramref name="entity" /> is not of the same type as the list items.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.ScopeToFolder(System.String,System.Boolean)">
+      <summary>Gets the subset of the <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" /> that consists of all and only the list items that belong to a particular folder, with or without the items in subfolders.</summary>
+      <returns>An <see cref="T:System.Linq.IQueryable`1" /> object that can be cast to <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" />.</returns>
+      <param name="listRelativePath">The list-relative path to the folder.</param>
+      <param name="recursive">true to include items in subfolders; false to exclude them.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityList`1.System#Collections#IEnumerable#GetEnumerator">
+      <summary>Returns an enumerator that iterates through the <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" />.</summary>
+      <returns>An <see cref="T:System.Collections.IEnumerator" /> that can be used to iterate the list.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntityList`1.System#Linq#IQueryable#ElementType">
+      <summary>Gets the content type of the list items.</summary>
+      <returns>A <see cref="T:System.Type" /> that represents the content type of the items in the list.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntityList`1.System#Linq#IQueryable#Expression">
+      <summary>Gets the expression tree of the most recent Language Integrated Query (LINQ) query of the <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" />.</summary>
+      <returns>An <see cref="T:System.Linq.Expressions.Expression" /> that represents the LINQ query.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntityList`1.System#Linq#IQueryable#Provider">
+      <summary>Gets an object that translates expression tree queries into Collaborative Application Markup Language (CAML) queries and executes them.</summary>
+      <returns>The <see cref="T:System.Linq.IQueryProvider" /> that provides the CAML translations of queries.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.EntityRef`1">
+      <summary>Provides for deferred loading and relationship maintenance for the singleton side of a one-to-many relationship.</summary>
+      <typeparam name="TEntity">The type of the entity on the singleton side of the relationship.</typeparam>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityRef`1.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> class.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityRef`1.Clone">
+      <summary>Creates a shallow copy of the <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" />.</summary>
+      <returns>A <see cref="T:System.Object" /> (castable <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" />) whose property values refer to the same objects as the property values of this <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" />.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityRef`1.GetEntity">
+      <summary>Returns the entity that is wrapped by this <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> object.</summary>
+      <returns>A <see cref="T:System.Object" /> that represents the entity that is stored in a private field of this <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> object.</returns>
+    </member>
+    <member name="E:Microsoft.SharePoint.Linq.EntityRef`1.OnChanged">
+      <summary>Raised after a change to this <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> object.</summary>
+    </member>
+    <member name="E:Microsoft.SharePoint.Linq.EntityRef`1.OnChanging">
+      <summary>Raised before a change to this <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> object.</summary>
+    </member>
+    <member name="E:Microsoft.SharePoint.Linq.EntityRef`1.OnSync">
+      <summary>Raised when the <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> object is synchronized with the entity it represents.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntityRef`1.SetEntity(`0)">
+      <summary>Sets the entity to which this <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> refers.</summary>
+      <param name="entity">The entity to which the <see cref="T:Microsoft.SharePoint.Linq.EntityRef`1" /> is being pointed.</param>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.EntitySet`1">
+      <summary>Provides for deferred loading and relationship maintenance for the “many” side of one-to-many and many-to-many relationships</summary>
+      <typeparam name="TEntity">The type of the member of the collection.</typeparam>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> class</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Add(`0)">
+      <summary>Adds the specified entity to the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <param name="entity">The entity that is added.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Assign(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Replaces the entities currently associated with this <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> with the specified collection.</summary>
+      <param name="entities">The collection of entities with which the current set is replaced.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Clear">
+      <summary>Removes all entities from this <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Clone">
+      <summary>Creates a shallow copy of the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <returns>A <see cref="T:System.Object" /> (castable <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />) whose property values refer to the same objects as the property values of this <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Contains(System.Object)">
+      <summary>Indicates whether a specified object is in the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />. </summary>
+      <returns>true, if the object is present; false otherwise..</returns>
+      <param name="value">The object whose presence is questioned.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Contains(`0)">
+      <summary>Indicates whether a specified entity is in the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />. </summary>
+      <returns>true, if the entity is present; false otherwise..</returns>
+      <param name="entity">The entity whose presence is questioned.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.CopyTo(System.Array,System.Int32)">
+      <summary>Copies the members of the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> to the specified array beginning at the specified array index.</summary>
+      <param name="array">The target array.</param>
+      <param name="index">The zero-based index in the array at which copying begins.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.CopyTo(`0[],System.Int32)">
+      <summary>Copies the members of the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> to the specified array beginning at the specified array index.</summary>
+      <param name="array">The target array.</param>
+      <param name="arrayIndex">The zero-based index in the array at which copying begins.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.Count">
+      <summary>Gets the total number of items in the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <returns>A <see cref="T:System.Int32" /> that represents the number of items in the collection.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.GetEnumerator">
+      <summary>Returns an enumerator that iterates through the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can iterate through the collection.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.IndexOf(System.Object)">
+      <summary>Returns the zero-based index of the first occurrence of the specified object in the collection.</summary>
+      <returns>A <see cref="T:System.Int32" /> that represents the zero-based index of the specified entity in the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</returns>
+      <param name="value">The object whose index is returned.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.IndexOf(`0)">
+      <summary>Returns the zero-based index of the first occurrence of the specified entity in the collection.</summary>
+      <returns>A <see cref="T:System.Int32" /> that represents the zero-based index of the specified entity in the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</returns>
+      <param name="entity">The entity whose index is returned.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Insert(System.Int32,`0)">
+      <summary>Inserts a specified entity into the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> at the specified index.</summary>
+      <param name="index">The point in the collection where the new entity is inserted.</param>
+      <param name="item">The entity that is inserted.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.Item(System.Int32)">
+      <summary>Gets or sets the item at the specified index.</summary>
+      <param name="index">The index of the item.</param>
+    </member>
+    <member name="E:Microsoft.SharePoint.Linq.EntitySet`1.OnChanged">
+      <summary>Raised after a change to this <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> object.</summary>
+    </member>
+    <member name="E:Microsoft.SharePoint.Linq.EntitySet`1.OnChanging">
+      <summary>Raised before a change to this <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> object.</summary>
+    </member>
+    <member name="E:Microsoft.SharePoint.Linq.EntitySet`1.OnSync">
+      <summary>Raised when the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> object is synchronized with the entities that it represents.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Remove(System.Object)">
+      <summary>Removes the specified object from the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <param name="value">The object that is removed.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.Remove(`0)">
+      <summary>Removes the specified entity from the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <returns>true, if the entity is successfully removed; false if it is not successfully removed or if it is not in the collection.</returns>
+      <param name="entity">The entity that is removed.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.RemoveAt(System.Int32)">
+      <summary>Removes the entity at the specified zero-based index of the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <param name="index">The zero-based index of the entity that is removed.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#Generic#ICollection{`0}#IsReadOnly">
+      <summary>Not implemented.</summary>
+      <exception cref="T:System.NotImplementedException">This method is called.</exception>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#ICollection#IsSynchronized">
+      <summary>Not implemented.</summary>
+      <exception cref="T:System.NotImplementedException">This method is called.</exception>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#ICollection#SyncRoot">
+      <summary>Not implemented.</summary>
+      <exception cref="T:System.NotImplementedException">This method is called.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#IEnumerable#GetEnumerator">
+      <summary>Returns an object that iterates the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <returns>An <see cref="T:System.Collections.IEnumerator" /> that can iterate the collection.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#IList#Add(System.Object)">
+      <summary>Not implemented. Use <see cref="M:Microsoft.SharePoint.Linq.EntitySet`1.Add(`0)" />.</summary>
+      <param name="value"></param>
+      <exception cref="T:System.NotImplementedException">This method is called.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#IList#Insert(System.Int32,System.Object)">
+      <summary>Inserts the specified object into the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" /> at the specified index.</summary>
+      <param name="index">The point in the collection where the new object is inserted.</param>
+      <param name="item">The object that is inserted.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#IList#IsFixedSize">
+      <summary>Not implemented.</summary>
+      <exception cref="T:System.NotImplementedException">This method is called.</exception>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#IList#IsReadOnly">
+      <summary>Not implemented.</summary>
+      <exception cref="T:System.NotImplementedException">This method is called.</exception>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Collections#IList#Item(System.Int32)">
+      <summary>Gets or sets the item at the specified index.</summary>
+      <returns>A <see cref="T:System.Object" /> that represents the item at the specified index and that is castable to the type of entities represented by the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</returns>
+      <param name="index">The index of the item.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Linq#IQueryable#ElementType">
+      <summary>Gets the type of the items in the <see cref="T:Microsoft.SharePoint.Linq.EntitySet`1" />.</summary>
+      <returns>A <see cref="T:System.Type" /> object that represents the type of the items in the collection.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Linq#IQueryable#Expression">
+      <summary>Gets the expression tree of the most recent Language Integrated Query (LINQ) query of the <see cref="T:Microsoft.SharePoint.Linq.EntityList`1" />.</summary>
+      <returns>An <see cref="T:System.Linq.Expressions.Expression" /> that represents the LINQ query.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.EntitySet`1.System#Linq#IQueryable#Provider">
+      <summary>Gets an object that translates expression tree queries into Collaborative Application Markup Language (CAML) queries and executes them.</summary>
+      <returns>A <see cref="T:System.Linq.IQueryProvider" /> that provides the CAML translations of queries.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.EntityState">
+      <summary>Records the changed state of an entity (usually a list item; but possibly a detached entity).</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.EntityState.Unchanged">
+      <summary>The entity is not changed.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.EntityState.ToBeInserted">
+      <summary>The entity will be inserted into a list.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.EntityState.ToBeUpdated">
+      <summary>The entity will be updated.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.EntityState.ToBeRecycled">
+      <summary>The entity will be recycled.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.EntityState.ToBeDeleted">
+      <summary>The entity will be deleted.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.EntityState.Deleted">
+      <summary>The entity has been deleted or recycled.</summary>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ICustomMapping">
+      <summary>Enables extension of the object-relational mapping system of the LINQ to SharePoint provider. </summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ICustomMapping.MapFrom(System.Object)">
+      <summary>Assigns a field (column) to a property so that LINQ to SharePoint can read data from the field in the content database to the property that represents it.</summary>
+      <param name="listItem">An <see cref="T:System.Object" /> that represents a list item and that can be cast to <see cref="T:Microsoft.SharePoint.SPListItem" />.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ICustomMapping.MapTo(System.Object)">
+      <summary>Assigns a property to a field (column) so that LINQ to SharePoint can save the value of the property to the field in the content database.</summary>
+      <param name="listItem">An <see cref="T:System.Object" /> that represents a list item and that can be cast to <see cref="T:Microsoft.SharePoint.SPListItem" />.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ICustomMapping.Resolve(Microsoft.SharePoint.Linq.RefreshMode,System.Object,System.Object)">
+      <summary>Resolves discrepancies in the values of one or more fields in a list item with respect to its current client value, its current value in the database, and its value when originally retrieved from the database.</summary>
+      <param name="mode">A value that specifies the rule to use in resolving discrepancies.</param>
+      <param name="originalListItem">An object that represents the values of the list item when it was originally retrieved from the content database by the client item and that can be cast to <see cref="T:Microsoft.SharePoint.SPListItem" />. </param>
+      <param name="databaseListItem">An object that represents the current values of the list item in the database item and that can be cast to <see cref="T:Microsoft.SharePoint.SPListItem" />. </param>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ITrackEntityState">
+      <summary>Enables participation in the object tracking system of the LINQ to SharePoint provider.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ITrackEntityState.EntityState">
+      <summary>Gets or sets a value that indicates the changed status of the entity.</summary>
+      <returns>An <see cref="T:Microsoft.SharePoint.Linq.EntityState" /> value that indicates the changed status of an entity.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ITrackOriginalValues">
+      <summary>Enables implementing classes to store a dictionary of changed properties and their original values.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ITrackOriginalValues.OriginalValues">
+      <summary>Gets a dictionary of the changed properties of the entity object and the values they had when they were last retrieved from the database.</summary>
+      <returns>A <see cref="T:System.Collections.Generic.IDictionary`2" /> that itemizes the names of changed properties and their original values.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ListAttribute">
+      <summary>Specifies that a property of a <see cref="T:Microsoft.SharePoint.Linq.DataContext" /> object represents a Windows SharePoint Services "14" list.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ListAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.ListAttribute" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ListAttribute.Name">
+      <summary>Gets or sets the name of the list.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the name of the list.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ListDataService"></member>
+    <member name="M:Microsoft.SharePoint.Linq.ListDataService.#ctor"></member>
+    <member name="M:Microsoft.SharePoint.Linq.ListDataService.CreateDataSource"></member>
+    <member name="M:Microsoft.SharePoint.Linq.ListDataService.Dispose"></member>
+    <member name="M:Microsoft.SharePoint.Linq.ListDataService.Dispose(System.Boolean)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.ListDataService.Finalize"></member>
+    <member name="M:Microsoft.SharePoint.Linq.ListDataService.GetService(System.Type)"></member>
+    <member name="M:Microsoft.SharePoint.Linq.ListDataService.InitializeService(System.Data.Services.IDataServiceConfiguration)"></member>
+    <member name="T:Microsoft.SharePoint.Linq.LookupList`1">
+      <summary>Represents the values of a Windows SharePoint Services "14" lookup field (column) that allows multiple values.</summary>
+      <typeparam name="T">The type of the members of the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</typeparam>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" /> class</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.Add(`0)">
+      <summary>Adds the specified entity to the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <param name="item">The item that is added.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.Assign(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Replaces the entities currently associated with this <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" /> with the specified collection.</summary>
+      <param name="items">The collection of items with which the current set is replaced.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.Clear">
+      <summary>Removes all entities from this <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.Clone">
+      <summary>Creates a shallow copy of the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <returns>A <see cref="T:System.Object" /> (castable to a <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />) whose property values refer to the same objects as the property values of this <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.Contains(`0)">
+      <summary>Indicates whether a specified entity is in the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />. </summary>
+      <returns>true, if the item is present; false otherwise..</returns>
+      <param name="item">The item whose presence is questioned.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.CopyTo(`0[],System.Int32)">
+      <summary>Copies the members of the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" /> to the specified array beginning at the specified array index.</summary>
+      <param name="array">The target array.</param>
+      <param name="arrayIndex">The zero-based index in the array at which copying begins.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.LookupList`1.Count">
+      <summary>Gets the total number of items in the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <returns>A <see cref="T:System.Int32" /> that represents the number of items in the collection.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.GetEnumerator">
+      <summary>Returns an enumerator that iterates through the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can interate through the collection.</returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.IndexOf(`0)">
+      <summary>Returns the zero-based index of the first occurrence of the specified entity in the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <returns>A <see cref="T:System.Int32" /> that represents the zero-based index of the specified item in the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</returns>
+      <param name="item">The item whose index is returned.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.Insert(System.Int32,`0)">
+      <summary>Inserts a specified item into the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" /> at the specified index.</summary>
+      <param name="index">The point in the collection where the new entity is inserted.</param>
+      <param name="item">The item that is inserted.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.LookupList`1.Item(System.Int32)">
+      <summary>Gets or sets the item at the specified index.</summary>
+      <param name="index">The index of the item.</param>
+    </member>
+    <member name="E:Microsoft.SharePoint.Linq.LookupList`1.OnChanged">
+      <summary>Raised after a change to this <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" /> object.</summary>
+    </member>
+    <member name="E:Microsoft.SharePoint.Linq.LookupList`1.OnChanging">
+      <summary>Raised before a change to this <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" /> object.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.Remove(`0)">
+      <summary>Removes the specified item from the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <returns>true, if the item is successfully removed; false if it is not successfully removed or if it is not in the collection.</returns>
+      <param name="item">The item that is removed.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.RemoveAt(System.Int32)">
+      <summary>Removes the item at the specified zero-based index of the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <param name="index">The zero-based index of the item that is removed.</param>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.LookupList`1.System#Collections#Generic#ICollection{`0}#IsReadOnly">
+      <summary>Not Implemented.</summary>
+      <returns>Returns <see cref="T:System.Boolean" />.</returns>
+      <exception cref="T:System.NotImplementedException">This method is called.</exception>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.LookupList`1.System#Collections#IEnumerable#GetEnumerator">
+      <summary>Returns an object that iterates the <see cref="T:Microsoft.SharePoint.Linq.LookupList`1" />.</summary>
+      <returns>An <see cref="T:System.Collections.IEnumerator" /> that can iterate the collection.</returns>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.MemberChangeConflict">
+      <summary>Specifies information about a discrepancy between the value of a field (or list item metadata property) in the database and its value in the current process, its client value. </summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.MemberChangeConflict.CurrentValue">
+      <summary>Gets the value of the field in the current process, the client value.</summary>
+      <returns>A <see cref="T:System.Object" /> that represents the value of the field after the most recent change, if any, made in the current process.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.MemberChangeConflict.DatabaseValue">
+      <summary>Gets the value of the field in the content database.</summary>
+      <returns>A <see cref="T:System.Object" /> that represents the value of the field in the database.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.MemberChangeConflict.IsModified">
+      <summary>Gets a value that indicates whether the current user has changed field value since it was last retrieved from the database.</summary>
+      <returns>true, if the value has been changed by the current process; otherwise, false.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.MemberChangeConflict.IsResolved">
+      <summary>Gets a value indicating whether the discrepancy has been resolved.</summary>
+      <returns>true, if the discrepancy is resolved; otherwise, false.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.MemberChangeConflict.Member">
+      <summary>Gets metadata information about the property of the list item object that represents the field for which there is a discrepancy.</summary>
+      <returns>A <see cref="T:System.Reflection.MemberInfo" /> object that holds information about the property.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.MemberChangeConflict.OriginalValue">
+      <summary>Gets the value of the field as it was when it was last retrieved from the database by the current process.</summary>
+      <returns>A <see cref="T:System.Object" /> that represents the value the field had in the database that last time it was retrieved by this current process. </returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.MemberChangeConflict.Resolve(Microsoft.SharePoint.Linq.RefreshMode)">
+      <summary>Resolves the discrepancy using the specified refresh mode.</summary>
+      <param name="refreshMode">A value that specifies how to resolve the conflict.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.MemberChangeConflict.Resolve(System.Object)">
+      <summary>Resolves the discrepancy by setting client value of the field (or property) to the specified object.</summary>
+      <param name="value">The value to which the field (or property) should be set.</param>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ObjectChangeConflict">
+      <summary>Specifies information about discrepancies between the current client value of one or more fields in a list item and the current database values of the fields. </summary>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ObjectChangeConflict.IsDeleted">
+      <summary>Gets a value that indicates whether the list item had been deleted from the database before the <see cref="M:Microsoft.SharePoint.Linq.DataContext.SubmitChanges(Microsoft.SharePoint.Linq.ConflictMode)" /> method was called.</summary>
+      <returns>true if the list item had been deleted; otherwise false. </returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ObjectChangeConflict.IsResolved">
+      <summary>Gets a value indicating whether the discrepancies have been resolved.</summary>
+      <returns>true if the discrepancies are resolved; otherwise false.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ObjectChangeConflict.MemberConflicts">
+      <summary>Gets a collection of objects that represent the discrepancies between the current values of the list item’s fields and the values they have in the database.</summary>
+      <returns>A <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> of <see cref="T:Microsoft.SharePoint.Linq.MemberChangeConflict" /> objects that represent the discrepancies.</returns>
+    </member>
+    <member name="P:Microsoft.SharePoint.Linq.ObjectChangeConflict.Object">
+      <summary>Gets the list item (as an <see cref="T:System.Object" />) for which there is one or more discrepancies.</summary>
+      <returns>The <see cref="T:System.Object" /> for which there is one or more discrepancies. </returns>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ObjectChangeConflict.Resolve">
+      <summary>Resolves the discrepancies by assigning each field and property, for which there is a discrepancy, a value that is persisted to the database on the next call of <see cref="M:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ObjectChangeConflict.Resolve(Microsoft.SharePoint.Linq.RefreshMode)">
+      <summary>Resolves the discrepancies by assigning each field and property, for which there is a discrepancy, a value that is persisted to the database on the next call of <see cref="M:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+      <param name="refreshMode">A value that specifies how to resolve the conflict.</param>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ObjectChangeConflict.Resolve(Microsoft.SharePoint.Linq.RefreshMode,System.Boolean)">
+      <summary>Resolves the discrepancies by assigning each field and property, for which there is a discrepancy, a value that is persisted to the database on the next call of <see cref="M:Microsoft.SharePoint.Linq.DataContext.SubmitChanges" />.</summary>
+      <param name="refreshMode">A value that specifies how to resolve the conflict.</param>
+      <param name="autoResolveDeletes">true to treat the conflict as resolved if the list item being changed has been deleted from the database; false to throw InvalidOperationException if the list item being changed has been deleted from the database</param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="autoResolveDeletes" /> is false and the list item being updated has been deleted from the database.</exception>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.RefreshMode">
+      <summary>Specifies how the list item changing system of the LINQ to SharePoint provider will respond when it finds that a list item has been changed by another process since it was retrieved.  </summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.RefreshMode.KeepChanges">
+      <summary>Accept every user’s changes with prejudice for the current user. This means: When applied to a <see cref="T:Microsoft.SharePoint.Linq.MemberChangeConflict" /> object: Keep the current client value if it has changed since originally retrieved; otherwise make it match the current database value.When applied to an <see cref="T:Microsoft.SharePoint.Linq.ObjectChangeConflict" /> object: Keep the new values for fields that the current version has changed since the original retrieval, even if they conflict with the latest version in the database; but all other fields should be changed as needed to match the latest version in the database.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.RefreshMode.KeepCurrentValues">
+      <summary>Rollback all other users’ changes. This means: When applied to a <see cref="T:Microsoft.SharePoint.Linq.MemberChangeConflict" /> object: Keep the current client value. (So, if it has changed since originally retrieved keep the new value; otherwise leave it at the original value.)When applied to an <see cref="T:Microsoft.SharePoint.Linq.ObjectChangeConflict" /> object: Keep the new values for fields that the current version has changed since the original retrieval, even if they conflict with the latest version in the database; but all other fields should remain as they were when originally retrieved, even if those values no longer match the latest version in the database.</summary>
+    </member>
+    <member name="F:Microsoft.SharePoint.Linq.RefreshMode.OverwriteCurrentValues">
+      <summary>Give absolute prejudice to the database version. This means: When applied to a <see cref="T:Microsoft.SharePoint.Linq.MemberChangeConflict" /> object: Match the current database value.When applied to an <see cref="T:Microsoft.SharePoint.Linq.ObjectChangeConflict" /> object: Make all values match the latest version in the database.</summary>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.RemovedColumnAttribute">
+      <summary>Specifies that the property maps to a field (column) that was removed from the parent content type.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.RemovedColumnAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.SharePoint.Linq.RemovedColumnAttribute" /> class.</summary>
+    </member>
+    <member name="T:Microsoft.SharePoint.Linq.ResourceStrings">
+      <summary>This type or member supports Microsoft Windows SharePoint Services and is not intended to be used directly from your code.</summary>
+    </member>
+    <member name="M:Microsoft.SharePoint.Linq.ResourceStrings.#ctor"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.AllListContentTypesExcluded"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.BindingCannotBeNull"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotAttachDeletedEntities"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotConvertNameToValidIdentifier"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotDeleteUntrackedEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotDeleteUnupdatableEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotDeriveFromListScopedContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotExcludeContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotExcludeRequiredColumn"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindBaseContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindIdField"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindList"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindListItem"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindLookupPropMapping"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindMapInfo"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindMatchingColumn"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindMemberMapping"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindProperty"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindStorageMember"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindSuggestedBaseClass"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindTypeNodeRewriter"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotFindWeb"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotGenerateChildBeforeParent"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotIncludeContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotInsertDeletedEntities"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotInsertExistingEntities"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotInsertNulls"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotInsertUnchangedEntitiesWithId"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotInsertUpdatedEntities"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotMapFieldToEnum"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotModifyRequiredColumn"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotNegateExpression"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotProjectLookupFields"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotRefreshDeletedEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotRefreshNewUnsavedEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotRefreshUnupdatableEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotRetrieveValue"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotSetCredentials"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotUpdateDeletedEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CannotUpdateUnupdatableEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ChangeConflict"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.CircularTypeHierarchyDetected"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ClientRequestTimedOut"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ContentTypeAttributeListPropertyRequiredOnContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ContentTypeAttributeRequiredOnDerivedType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ContentTypeAttributeRequiredOnParentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.DuplicateColumnEntry"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.DuplicateContentTypeEntry"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.DuplicateExcludeColumnEntry"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.DuplicateExcludeContentTypeEntry"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.DuplicateExcludeListEntry"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.DuplicateListEntry"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.EntityIdCannotBeNull"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.EntityMustHaveId"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.EntityMustHaveVersion"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.EntityNotAssociatedWithAnyList"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.EntityTypeMismatchListType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.EntityTypeMissingDataBinder"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.FieldRemovedFromContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.IncludeExcludeColumns"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.IncludeExcludeContentTypes"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.IncludeExcludeLists"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.IncompatibleColumnTypes"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.IncompatibleExpressionSequenceType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.IncompatibleExpressionType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.IncompatibleResourceType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InefficientQueriesDisallowed"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidAccessModifier"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidAssignment"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidAssociationPropertyInSetReference"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidAssociationToNonUpdatableEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidAssociationType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidColumn"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidDerivedContentTypeId"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidExcludeColumn"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidExcludeContentType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidExcludeList"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidExpressionType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidFieldValueAssignment"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidLanguage"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidList"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidOperationOnUnupdatableEntity"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidSourceCodeOutput"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidTransferType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidTypeForDataServiceMapping"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.InvalidWebUrl"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.MemberIsNotPublicPropOrField"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.MemberIsReadOnly"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.MemberIsWriteOnly"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.MemberMustBeFieldOrProperty"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.MemberMustBeNodeOrSequenceOfNode"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.MethodCallExpressionExpected"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ModifiedDeletedColumn"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.NewEntityCannotHaveId"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.NewEntityNotAdded"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.NonApplicableProperty"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.NotAChoiceField"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.NotALookupField"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ObjectTrackingEnabledCannotBeChanged"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ObjectTrackingEnabledNeedsToBeSet"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ParameterCountMismatch"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ParameterIndexOutOfRange"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ResolveConflictsBeforeSubmit"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.RuleMissing"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.SemiEfficientQueriesDisallowed"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.TypeAlreadyAssociatedWithList"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.UnexpectedSPDataAttribute"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.UnhandledExpression"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.UnsupportedClauseType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.UnsupportedType"></member>
+    <member name="F:Microsoft.SharePoint.Linq.ResourceStrings.ValuesOutOfSyncWithDB"></member>
+  </members>
+</doc>

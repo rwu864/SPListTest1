@@ -1,0 +1,35 @@
+﻿@using Microsoft.SharePoint.Client
+
+@{
+    ViewBag.Title = "Items";
+}
+
+<h2>@ViewBag.List.Title</h2>
+
+<p><a href="NewItem">New Item</a></p>
+
+<table border="1">
+    <tr>
+        <th>Request ID</th>
+        <th>Request Details</th>
+        <th>Requested By</th>
+        <th>Request Status</th>
+        <th>Request Due Date</th>
+        <th>Edit Item</th>
+        <th>Delete Item</th>
+    </tr>
+    @foreach (ListItem listItem in ViewBag.ListItems)
+    {
+        <tr>
+            <td>@listItem["NewColumn1"]</td>
+            <td>@listItem["Request_x0020_Details"]</td>
+            <td>@(((FieldUserValue)listItem["Author"]).LookupValue)</td>
+            <td>@listItem["Request_x0020_Status"]</td>
+            <td>@(((DateTime)listItem["Request_x0020_Due_x0020_Date"]).ToShortDateString())</td>
+            <td><a href="EditItem?ID=@listItem["ID"]">Edit Item</a></td>
+            <td><a href="DeleteItem?ID=@listItem["ID"]">Delete Request</a></td>
+        </tr>
+    }
+</table>
+
+<p>@ViewBag.ListItems.Count items in the List.</p>
