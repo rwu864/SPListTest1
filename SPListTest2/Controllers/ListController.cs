@@ -76,7 +76,7 @@ namespace SPListTest1.Controllers
             // otherwise the Requested By (i.e. Author) field will be populated with
             // the user who runs the ASP.NET web applicationn.
 
-            var user = clientContext.Web.EnsureUser("rwu8");
+            var user = clientContext.Web.EnsureUser(User.Identity.Name);
             clientContext.Load(user);
             clientContext.ExecuteQuery();
             FieldUserValue userValue = new FieldUserValue();
