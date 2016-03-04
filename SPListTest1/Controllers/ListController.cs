@@ -137,7 +137,20 @@ namespace SPListTest1.Controllers
             clientContext.Load(field);
             clientContext.ExecuteQuery();
 
-            ViewBag.Request_Status_Choices = field.Choices;
+            //converting String[] to IENumerable<SelectListItem>
+            List<SelectListItem> status_choices = new List<SelectListItem>();
+            foreach (string choice in field.Choices)
+            {
+                SelectListItem temp = new SelectListItem();
+                temp.Text = choice; temp.Value = choice;
+                if (choice.Equals(Request_Status))
+                {
+                    temp.Selected = true;
+                }
+                status_choices.Add(temp);
+            }
+
+            ViewBag.status_choices = status_choices;
 
             return View();
         }

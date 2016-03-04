@@ -1,6 +1,6 @@
 ﻿@using Microsoft.SharePoint.Client
 @{
-    
+    List<SelectListItem> status_choices = ViewBag.status_choices;
 }
 
 <!DOCTYPE html>
@@ -14,14 +14,7 @@
     Request ID: @ViewBag.Request_ID <br/>
     Request By: @ViewBag.Request_By <br/>
     <form action="EditItem" method="post">
-        Request Status: <select name="status">
-            @{ 
-                foreach(String choice in ViewBag.Request_Status_Choices)
-                {
-                    <option value ="@choice">@choice</option>
-                }
-            }
-        </select><br/><br/>
+        Request Status: @Html.DropDownList("status",status_choices) <br/>
         Request Details: <textarea name="details" rows="5" cols="50">@ViewBag.Request_Details</textarea><br />
         Request Due Date(YYYY/MM/DD Format): <input type="date" name="date" value="@ViewBag.Request_Due_Date"> <br/>
         <input type="hidden" name="ID" value="@ViewBag.ID"/>
