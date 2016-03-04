@@ -212,6 +212,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\List\Items.cshtml" />
+    <Content Include="Views\List\NewItem.cshtml" />
+    <Content Include="Views\List\EditItem.cshtml" />
+    <Content Include="Views\List\DeleteItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
