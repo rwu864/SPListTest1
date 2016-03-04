@@ -132,6 +132,13 @@ namespace SPListTest1.Controllers
             ViewBag.ID = ID;
             ViewBag.Request_Due_Date = Request_Due_Date;
 
+            //getting choice fields from Request Status column 
+            FieldChoice field = clientContext.CastTo<FieldChoice>(spList.Fields.GetByInternalNameOrTitle(sp_Request_Status));
+            clientContext.Load(field);
+            clientContext.ExecuteQuery();
+
+            ViewBag.Request_Status_Choices = field.Choices;
+
             return View();
         }
 
