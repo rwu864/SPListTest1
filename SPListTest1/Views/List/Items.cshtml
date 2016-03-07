@@ -7,28 +7,36 @@
 
 <h2>@ViewBag.List.Title</h2>
 
-<p><a href="NewItem">New Item</a></p>
+<p>Welcome, @ViewBag.Username!</p>
+
+<p><a href="@Url.Action("NewItem", "List")">New Item</a></p>
 
 <table border="1">
     <tr>
         <th>Request ID</th>
         <th>Request Details</th>
+        <th>Request Due Date</th>
         <th>Requested By</th>
         <th>Request Status</th>
-        <th>Request Due Date</th>
-        <th>Edit Item</th>
-        <th>Delete Item</th>
+        <th>Operations</th>
     </tr>
     @foreach (ListItem listItem in ViewBag.ListItems)
     {
         <tr>
-            <td>@listItem["NewColumn1"]</td>
+            <td>@listItem["Request_x0020_ID"]</td>
             <td>@listItem["Request_x0020_Details"]</td>
+            <td>
+              @if (listItem["Request_x0020_Due_x0020_Date"] != null)
+              {
+                @(((DateTime)listItem["Request_x0020_Due_x0020_Date"]).ToShortDateString())
+              }
+            </td>
             <td>@(((FieldUserValue)listItem["Author"]).LookupValue)</td>
             <td>@listItem["Request_x0020_Status"]</td>
-            <td>@(((DateTime)listItem["Request_x0020_Due_x0020_Date"]).ToShortDateString())</td>
-            <td><a href="EditItem?ID=@listItem["ID"]">Edit Item</a></td>
-            <td><a href="DeleteItem?ID=@listItem["ID"]">Delete Request</a></td>
+            <td>
+                <a href="@Url.Action("EditItem", "List", new { id = @listItem["ID"] })">Edit</a> |
+                <a href="@Url.Action("DeleteItem", "List", new { id = @listItem["ID"] })">Delete</a>
+            </td>
         </tr>
     }
 </table>

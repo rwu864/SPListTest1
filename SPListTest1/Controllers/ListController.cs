@@ -5,31 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.SharePoint.Client;
 using SPClient = Microsoft.SharePoint.Client;
-using Microsoft.SharePoint;
-using Microsoft.SharePoint.Utilities;
-
 
 namespace SPListTest1.Controllers
 {
     public class ListController : Controller
     {
-        string SiteUrl = "http://qtcserver/raymond/";
-        string ListName = "Request_Test";
+        string SiteUrl = "http://win08vm/cysun";
+        string ListName = "Test List 1";
 
-        //Internal Names                ->  List Names 
-        //NewColumn1                    ->  Request ID
-        //Request_x0020_Details         ->  Request Details
-        //Author                        ->  Request By
-        //Request_x0020_Status          ->  Request Status
-        //Request_x0020_Due_x0020_Date  -> Request Due Date
-
-        //these are strings that represent that map the SP2010 list name to the internal names 
-    
-        string sp_Request_ID = "NewColumn1";
-        string sp_Request_Details = "Request_x0020_Details";
-        string sp_Request_By = "Author";
-        string sp_Request_Status = "Request_x0020_Status";
-        string sp_Request_Due_Date = "Request_x0020_Due_x0020_Date";
+        // Internal names of the fields
+        string FieldId = "Request_x0020_ID";
+        string FieldDetails = "Request_x0020_Details";
+        string FieldDueDate = "Request_x0020_Due_x0020_Date";
+        string FieldAuthor = "Author";
+        string FieldStatus = "Request_x0020_Status";
 
         public ActionResult Items()
         {
@@ -42,41 +31,36 @@ namespace SPListTest1.Controllers
             clientContext.Load(spList);
             clientContext.ExecuteQuery();
 
+
             CamlQuery camlQuery = new CamlQuery();
             ListItemCollection spListItems = spList.GetItems(camlQuery);
             clientContext.Load(spListItems, items => items.IncludeWithDefaultProperties(
-                item => item[sp_Request_ID],
-                item => item[sp_Request_Details],
-                item => item[sp_Request_By],
-                item => item[sp_Request_Status],
-                item => item[sp_Request_Due_Date]));
+                item => item[FieldId],
+                item => item[FieldDetails],
+                item => item[FieldDueDate],
+                item => item[FieldAuthor],
+                item => item[FieldStatus]));
             clientContext.ExecuteQuery();
 
+            ViewBag.Username = User.Identity.Name;
             ViewBag.List = spList;
             ViewBag.ListItems = spListItems;
-
-            
-
-            
             return View();
         }
 
         [HttpGet]
         public ActionResult NewItem()
         {
+            ViewBag.Username = User.Identity.Name;
             return View();
         }
 
         [HttpPost]
-        public RedirectResult NewItem(string details, DateTime due_date)
+        public RedirectResult NewItem(string details, DateTime dueDate)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
 
-            // For testing purpose, we'll use a local account jdoe for the new item;
-            // otherwise the Requested By (i.e. Author) field will be populated with
-            // the user who runs the ASP.NET web applicationn.
-
-            var user = clientContext.Web.EnsureUser("rwu8");
+            var user = clientContext.Web.EnsureUser(User.Identity.Name);
             clientContext.Load(user);
             clientContext.ExecuteQuery();
             FieldUserValue userValue = new FieldUserValue();
@@ -85,9 +69,9 @@ namespace SPListTest1.Controllers
             List spList = clientContext.Web.Lists.GetByTitle(ListName);
             var info = new ListItemCreationInformation();
             var item = spList.AddItem(info);
-            item[sp_Request_Details] = details;
-            item[sp_Request_By] = userValue;
-            item[sp_Request_Due_Date] = due_date;
+            item[FieldDetails] = details;
+            item[FieldDueDate] = dueDate;
+            item[FieldAuthor] = userValue;
             item.Update();
             clientContext.ExecuteQuery();
 
@@ -95,81 +79,68 @@ namespace SPListTest1.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteItem(int ID)
+        public ActionResult DeleteItem(int id)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
             List spList = clientContext.Web.Lists.GetByTitle(ListName);
-            ListItem spListItem = spList.GetItemById(ID);
+            ListItem spListItem = spList.GetItemById(id);
 
             spListItem.DeleteObject();
             clientContext.ExecuteQuery();
 
-            return Redirect("Items");
+            return RedirectToAction("Items");
         }
 
         [HttpGet]
-        public ActionResult EditItem(int ID)
+        public ActionResult EditItem(int id)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
             List spList = clientContext.Web.Lists.GetByTitle(ListName);
 
             clientContext.Load(spList);
-            ListItem spListItem = spList.GetItemById(ID);
+            ListItem spListItem = spList.GetItemById(id);
             clientContext.Load(spListItem);
             clientContext.ExecuteQuery();
             
-            string Request_ID = (String)spListItem[sp_Request_ID];
-            string Request_Details = (String)spListItem[sp_Request_Details];
-            string Request_Status = (String)spListItem[sp_Request_Status];
-            FieldUserValue Author = (FieldUserValue)spListItem[sp_Request_By];
+            string Request_ID = (String)spListItem[FieldId];
+            string Request_Details = (String)spListItem[FieldDetails];
+            string Request_Status = (String)spListItem[FieldStatus];
+            var dueDate = spListItem[FieldDueDate];
+            string Request_Due_Date = dueDate != null ? ((DateTime)dueDate).ToShortDateString() : "";
+            FieldUserValue Author = (FieldUserValue)spListItem[FieldAuthor];
             string Request_By = Author.LookupValue;
-            string Request_Due_Date = ((DateTime)spListItem[sp_Request_Due_Date]).ToShortDateString();
             
             ViewBag.Request_ID = Request_ID;
             ViewBag.Request_Details = Request_Details;
             ViewBag.Request_Status = Request_Status;
-            ViewBag.Request_By = Request_By;
-            ViewBag.ID = ID;
             ViewBag.Request_Due_Date = Request_Due_Date;
+            ViewBag.Request_By = Request_By;
+            ViewBag.ID = id;
 
-            //getting choice fields from Request Status column 
-            FieldChoice field = clientContext.CastTo<FieldChoice>(spList.Fields.GetByInternalNameOrTitle(sp_Request_Status));
-            clientContext.Load(field);
+            // Getting choice fields from Request Status column 
+            FieldChoice choiceField = clientContext.CastTo<FieldChoice>(spList.Fields.GetByInternalNameOrTitle(FieldStatus));
+            clientContext.Load(choiceField);
             clientContext.ExecuteQuery();
-
-            //converting String[] to IENumerable<SelectListItem>
-            List<SelectListItem> status_choices = new List<SelectListItem>();
-            foreach (string choice in field.Choices)
-            {
-                SelectListItem temp = new SelectListItem();
-                temp.Text = choice; temp.Value = choice;
-                if (choice.Equals(Request_Status))
-                {
-                    temp.Selected = true;
-                }
-                status_choices.Add(temp);
-            }
-
-            ViewBag.status_choices = status_choices;
+            ViewBag.Request_Status_Choices = choiceField.Choices;
 
             return View();
         }
 
         [HttpPost]
-        public RedirectResult EditItem(String details, String status, int ID, DateTime date)
+        public ActionResult EditItem(int id, String details, DateTime dueDate, String status)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
             List spList = clientContext.Web.Lists.GetByTitle(ListName);
-            ListItem spListItem = spList.GetItemById(ID);
+            ListItem spListItem = spList.GetItemById(id);
 
-            spListItem[sp_Request_Details] = details;
-            spListItem[sp_Request_Status] = status;
-            spListItem[sp_Request_Due_Date] = date;
+            spListItem[FieldDetails] = details;
+            spListItem[FieldDueDate] = dueDate;
+            spListItem[FieldStatus] = status;
 
             spListItem.Update();
             clientContext.ExecuteQuery();
 
-            return Redirect("Items");
+            return RedirectToAction("Items");
         }
     }
 }
