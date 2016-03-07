@@ -16,7 +16,7 @@ namespace SPListTest1
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "List", action = "Items", id = UrlParameter.Optional }
             );
         }
     }

@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Microsoft.SharePoint.Client;
 using SPClient = Microsoft.SharePoint.Client;
 
-
 namespace SPListTest1.Controllers
 {
     public class ListController : Controller
@@ -43,6 +42,7 @@ namespace SPListTest1.Controllers
                 item => item[FieldStatus]));
             clientContext.ExecuteQuery();
 
+            ViewBag.Username = User.Identity.Name;
             ViewBag.List = spList;
             ViewBag.ListItems = spListItems;
             return View();
@@ -51,6 +51,7 @@ namespace SPListTest1.Controllers
         [HttpGet]
         public ActionResult NewItem()
         {
+            ViewBag.Username = User.Identity.Name;
             return View();
         }
 
@@ -59,11 +60,7 @@ namespace SPListTest1.Controllers
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
 
-            // For testing purpose, we'll use a local account jdoe for the new item;
-            // otherwise the Requested By (i.e. Author) field will be populated with
-            // the user who runs the ASP.NET web applicationn.
-
-            var user = clientContext.Web.EnsureUser("WIN08VM\\jdoe");
+            var user = clientContext.Web.EnsureUser(User.Identity.Name);
             clientContext.Load(user);
             clientContext.ExecuteQuery();
             FieldUserValue userValue = new FieldUserValue();
@@ -82,26 +79,26 @@ namespace SPListTest1.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteItem(int ID)
+        public ActionResult DeleteItem(int id)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
             List spList = clientContext.Web.Lists.GetByTitle(ListName);
-            ListItem spListItem = spList.GetItemById(ID);
+            ListItem spListItem = spList.GetItemById(id);
 
             spListItem.DeleteObject();
             clientContext.ExecuteQuery();
 
-            return Redirect("Items");
+            return RedirectToAction("Items");
         }
 
         [HttpGet]
-        public ActionResult EditItem(int ID)
+        public ActionResult EditItem(int id)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
             List spList = clientContext.Web.Lists.GetByTitle(ListName);
 
             clientContext.Load(spList);
-            ListItem spListItem = spList.GetItemById(ID);
+            ListItem spListItem = spList.GetItemById(id);
             clientContext.Load(spListItem);
             clientContext.ExecuteQuery();
             
@@ -118,7 +115,7 @@ namespace SPListTest1.Controllers
             ViewBag.Request_Status = Request_Status;
             ViewBag.Request_Due_Date = Request_Due_Date;
             ViewBag.Request_By = Request_By;
-            ViewBag.ID = ID;
+            ViewBag.ID = id;
 
             // Getting choice fields from Request Status column 
             FieldChoice choiceField = clientContext.CastTo<FieldChoice>(spList.Fields.GetByInternalNameOrTitle(FieldStatus));
@@ -130,11 +127,11 @@ namespace SPListTest1.Controllers
         }
 
         [HttpPost]
-        public RedirectResult EditItem(String details, DateTime dueDate, String status, int ID)
+        public ActionResult EditItem(int id, String details, DateTime dueDate, String status)
         {
             ClientContext clientContext = new ClientContext(SiteUrl);
             List spList = clientContext.Web.Lists.GetByTitle(ListName);
-            ListItem spListItem = spList.GetItemById(ID);
+            ListItem spListItem = spList.GetItemById(id);
 
             spListItem[FieldDetails] = details;
             spListItem[FieldDueDate] = dueDate;
@@ -143,7 +140,7 @@ namespace SPListTest1.Controllers
             spListItem.Update();
             clientContext.ExecuteQuery();
 
-            return Redirect("Items");
+            return RedirectToAction("Items");
         }
     }
 }

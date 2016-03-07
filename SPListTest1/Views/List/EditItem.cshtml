@@ -6,10 +6,9 @@
 Request ID: @ViewBag.Request_ID <br/>
 Request By: @ViewBag.Request_By <br/>
 
-<form action="EditItem" method="post">
+<form action="@Url.Action("EditItem", "List")" method="post">
   Request Status: @Html.DropDownList("status", new SelectList(ViewBag.Request_Status_Choices, ViewBag.Request_Status)) <br/>
   Request Details: <textarea name="details" rows="5" cols="50">@ViewBag.Request_Details</textarea><br />
   Request Due Date(YYYY/MM/DD Format): <input type="date" name="dueDate" value="@ViewBag.Request_Due_Date"> <br/>
-  <input type="hidden" name="ID" value="@ViewBag.ID"/>
   <input type="submit" name="submit" value="Update" /><br/>
 </form>

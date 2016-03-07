@@ -7,7 +7,9 @@
 
 <h2>@ViewBag.List.Title</h2>
 
-<p><a href="NewItem">New Item</a></p>
+<p>Welcome, @ViewBag.Username!</p>
+
+<p><a href="@Url.Action("NewItem", "List")">New Item</a></p>
 
 <table border="1">
     <tr>
@@ -32,8 +34,8 @@
             <td>@(((FieldUserValue)listItem["Author"]).LookupValue)</td>
             <td>@listItem["Request_x0020_Status"]</td>
             <td>
-                <a href="EditItem?ID=@listItem["ID"]">Edit</a> |
-                <a href="DeleteItem?ID=@listItem["ID"]">Delete</a>
+                <a href="@Url.Action("EditItem", "List", new { id = @listItem["ID"] })">Edit</a> |
+                <a href="@Url.Action("DeleteItem", "List", new { id = @listItem["ID"] })">Delete</a>
             </td>
         </tr>
     }
