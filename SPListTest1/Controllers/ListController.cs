@@ -10,11 +10,11 @@ namespace SPListTest1.Controllers
 {
     public class ListController : Controller
     {
-        string SiteUrl = "http://win08vm/cysun";
-        string ListName = "Test List 1";
+        string SiteUrl = "http://qtcserver/raymond";
+        string ListName = "Request_Test";
 
         // Internal names of the fields
-        string FieldId = "Request_x0020_ID";
+        string FieldId = "NewColumn1";
         string FieldDetails = "Request_x0020_Details";
         string FieldDueDate = "Request_x0020_Due_x0020_Date";
         string FieldAuthor = "Author";
